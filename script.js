@@ -1,44 +1,54 @@
-let emotion = "";
-const scriptURL = 'https://script.google.com/macros/s/AKfycbz-YgHPnWROmN9exFHbbLzVcPFUi8LNRiR-qMbsw8NfRU4fDw3Maimfza-yjZaULQNUPg/exec';
+const scriptURL = 'https://script.google.com/macros/s/AKfycbw11-sZBdkaxqiKzKeLtkOBs5KZaABiz2BkEIsUTI2a2TGRUDXLFhb-GEKPZqEd0eEREQ/exec'; // Replace with your Google Apps Script Web App URL
+const pages = document.querySelectorAll('.page');
+let currentEmotion = '';
 
-function pick(e) {
-  emotion = e;
-  document.getElementById("opts").style.display = "none";
-  document.getElementById("form").style.display = "block";
+function navigateTo(pageId, emotion = '') {
+    pages.forEach(page => page.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    currentEmotion = emotion;
+    if (pageId === 'page2' && emotion) {
+        document.querySelector('#page2 h2').textContent = `You selected: ${emotion}. Please let me know your thoughts.`;
+    }
+    if (pageId === 'page3') {
+        const messageBox = document.getElementById('message-box');
+        const messageTextarea = document.getElementById('message');
+        messageBox.textContent = messageTextarea.value.substring(0, 20) + '...'; // Show a snippet in the animation
+    }
 }
 
-function send() {
-  const m = document.getElementById("msg").value.trim();
-  if (!m) return alert("Type something!");
+function submitEntry() {
+    const message = document.getElementById('message').value;
+    if (!message.trim()) {
+        alert('Please enter your thoughts.');
+        return;
+    }
 
-  const timestamp = new Date().toLocaleString();
+    const timestamp = new Date().toISOString();
+    const formData = new FormData();
+    formData.append('emotion', currentEmotion);
+    formData.append('message', message);
+    formData.append('timestamp', timestamp);
 
-  fetch(scriptURL, {
-    method: "POST",
-    body: JSON.stringify({ emotion, message: m, timestamp }),
-    headers: { "Content-Type": "application/json" }
-  })
-  .then(response => {
-    if (!response.ok) throw new Error('Network response was not ok');
-    return response.text();
-  })
-  .then(data => {
-    console.log('Success:', data);
-    document.getElementById("form").style.display = "none";
-    document.getElementById("thank").style.display = "block";
-    document.getElementById("thanksText").innerText =
-      emotion === "Grievance"
-        ? "Prath will solve this 💪"
-        : "Thank you, Hetu 💖\nLove, Prath";
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    alert('There was a problem with your submission. Please try again.');
-  });
+    fetch(scriptURL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success!', data);
+        navigateTo('page3');
+        document.getElementById('message').value = ''; // Clear the textarea
+    })
+    .catch((error) => {
+        console.error('Error!', error);
+        alert('There was an error submitting your entry. Please try again later.');
+    });
 }
 
-function reset() {
-  document.getElementById("thank").style.display = "none";
-  document.getElementById("opts").style.display = "flex";
-  document.getElementById("msg").value = "";
-}
+// Initial navigation to the first page
+navigateTo('page1');
