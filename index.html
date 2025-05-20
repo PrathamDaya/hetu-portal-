@@ -1,591 +1,133 @@
-/* Import Google Fonts for handwriting style */
-@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Dancing+Script:wght@400;700&display=swap');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hetu's Feelings Portal</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hi Hetuu, how can I help you?</h1>
+        </header>
+        
+        <main>
+            <section id="page1" class="page active">
+                <div class="option-box grievance" onclick="navigateTo('page2', 'Grievance')">Grievance</div>
+                <div class="option-box appreciate" onclick="navigateTo('page2', 'Appreciate')">Appreciate</div>
+                <div class="option-box sad" onclick="navigateTo('page2', 'Sad')">Sad</div>
+                <div class="option-box happy" onclick="navigateTo('page2', 'Happy')">Happy</div>
+            </section>
 
-/* Animated Background */
-body {
-    font-family: 'Kalam', cursive;
-    margin: 0;
-    background: linear-gradient(-45deg, #ffe6f0, #ffcce0, #ffb3d9, #ff99cc);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+            <section id="page2" class="page">
+                <h2>Please let me know your thoughts</h2>
+                <div class="notebook">
+                    <!-- Added holes for notebook effect -->
+                    <div class="holes">
+                        <div class="hole"></div>
+                        <div class="hole"></div>
+                        <div class="hole"></div>
+                        <div class="hole"></div>
+                        <div class="hole"></div>
+                    </div>
+                    <textarea id="message" placeholder="Write here..."></textarea>
+                    <div class="ribbon top-left"></div>
+                    <div class="ribbon bottom-right"></div>
+                    <div class="heart top-right">💖</div>
+                    <div class="heart bottom-left">💖</div>
+                </div>
+                <button id="submitBtn" onclick="submitEntry()">Submit</button>
+                <button onclick="navigateTo('page1')">Back</button>
+            </section>
 
-@keyframes gradient {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
-}
+            <section id="page3" class="page">
+                <h2>Thank you Hetu!</h2>
+                <div id="animation-container">
+                    <div id="message-box"></div>
+                    <div id="mail-icon">✉️</div>
+                    <!-- Added love particles container -->
+                    <div id="love-particles"></div>
+                </div>
+                <div id="thank-you-message">Thank you for your message!</div>
+                <div id="prath-message">Prath will solve it 😚</div>
+                <div id="love-message">I love you my hetu 😚</div>
+                <button onclick="navigateTo('page1')">Home</button>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 For Hetu with Love</p>
+        </footer>
+    </div>
 
-.container {
-    background-color: rgba(255, 179, 217, 0.9);
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    padding: 30px;
-    width: 80%;
-    max-width: 600px;
-    text-align: center;
-    transform: translateY(0);
-    animation: float 6s ease-in-out infinite;
-    position: relative;
-    overflow: hidden;
-}
-
-@keyframes float {
-    0% {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        transform: translateY(0px);
-    }
-    50% {
-        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
-        transform: translateY(-10px);
-    }
-    100% {
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        transform: translateY(0px);
-    }
-}
-
-/* Decorative elements */
-.container::before, .container::after {
-    content: '';
-    position: absolute;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    z-index: -1;
-}
-
-.container::before {
-    top: -15px;
-    left: -15px;
-    animation: bubble 7s ease-in-out infinite;
-}
-
-.container::after {
-    bottom: -15px;
-    right: -15px;
-    animation: bubble 9s ease-in-out infinite;
-}
-
-@keyframes bubble {
-    0%, 100% {
-        transform: scale(1);
-        opacity: 0.7;
-    }
-    50% {
-        transform: scale(1.5);
-        opacity: 0.3;
-    }
-}
-
-header h1 {
-    color: #8c004b;
-    margin-bottom: 20px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 1.5s ease;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.page {
-    display: none;
-    animation: pageFadeIn 0.8s ease;
-}
-
-@keyframes pageFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.page.active {
-    display: block;
-}
-
-/* Page 1 Styles */
-#page1 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.option-box {
-    background: linear-gradient(135deg, #ff69b4, #e6007e);
-    color: white;
-    padding: 25px;
-    border-radius: 15px;
-    cursor: pointer;
-    font-size: 1.2em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 5px 15px rgba(230, 0, 126, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-/* Custom colors for different emotion boxes */
-.grievance {
-    background: linear-gradient(135deg, #ff6b6b, #cc0000);
-}
-
-.appreciate {
-    background: linear-gradient(135deg, #4e7aff, #0029cc);
-}
-
-.sad {
-    background: linear-gradient(135deg, #a78bfa, #5521b5);
-}
-
-.happy {
-    background: linear-gradient(135deg, #4ade80, #16a34a);
-}
-
-.option-box:hover {
-    transform: translateY(-10px) scale(1.05);
-    box-shadow: 0 15px 25px rgba(230, 0, 126, 0.4);
-}
-
-.option-box::after {
-    content: "";
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
-    opacity: 0;
-    transform: scale(0.5);
-    transition: transform 0.5s, opacity 0.5s;
-}
-
-.option-box:hover::after {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Page 2 Styles - Enhanced Notebook */
-#page2 h2 {
-    color: #8c004b;
-    margin-bottom: 15px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 2em;
-}
-
-.notebook {
-    position: relative;
-    background-color: #f8f8f8;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    padding: 30px;
-    margin-bottom: 30px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1);
-    background-image: 
-        linear-gradient(#f1f1f1 1px, transparent 1px),
-        linear-gradient(90deg, #f1f1f1 1px, transparent 1px);
-    background-size: 20px 20px;
-    transform: rotate(-1deg);
-    transition: transform 0.3s ease;
-}
-
-.notebook:hover {
-    transform: rotate(0deg);
-}
-
-.notebook::before {
-    content: '';
-    position: absolute;
-    left: -10px;
-    top: 0;
-    height: 100%;
-    width: 30px;
-    background: linear-gradient(to right, #ff99cc, #ffb3d9);
-    border-radius: 4px 0 0 4px;
-    transform: translateX(-50%);
-    z-index: -1;
-}
-
-.holes {
-    position: absolute;
-    left: -5px;
-    top: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.hole {
-    width: 12px;
-    height: 12px;
-    background-color: #fff;
-    border-radius: 50%;
-    border: 1px solid #ddd;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.notebook textarea {
-    width: 100%;
-    height: 170px;
-    padding: 0;
-    border: none;
-    box-sizing: border-box;
-    font-family: 'Kalam', cursive;
-    font-size: 1.1em;
-    line-height: 30px;
-    background-color: transparent;
-    background-image: linear-gradient(transparent 29px, #ccc 30px);
-    background-size: 100% 30px;
-    outline: none;
-    resize: none;
-    color: #333;
-}
-
-.ribbon {
-    width: 70px;
-    height: 25px;
-    background: linear-gradient(135deg, #e6007e, #ff1493);
-    position: absolute;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-
-.ribbon.top-left {
-    top: -10px;
-    left: 15px;
-    transform: rotate(-45deg);
-}
-
-.ribbon.bottom-right {
-    bottom: -10px;
-    right: 15px;
-    transform: rotate(45deg);
-}
-
-.heart {
-    font-size: 1.8em;
-    position: absolute;
-    color: #ff1493;
-    text-shadow: 0 0 5px rgba(255, 20, 147, 0.5);
-    animation: heartBeat 1.5s ease infinite;
-}
-
-@keyframes heartBeat {
-    0%, 100% {
-        transform: scale(1);
-    }
-    14% {
-        transform: scale(1.1);
-    }
-    28% {
-        transform: scale(1);
-    }
-    42% {
-        transform: scale(1.2);
-    }
-    70% {
-        transform: scale(1);
-    }
-}
-
-.heart.top-right {
-    top: 10px;
-    right: 10px;
-}
-
-.heart.bottom-left {
-    bottom: 10px;
-    left: 10px;
-}
-
-button {
-    background: linear-gradient(135deg, #ff69b4, #e6007e);
-    color: white;
-    border: none;
-    padding: 12px 25px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 1em;
-    font-family: 'Kalam', cursive;
-    margin: 8px;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(230, 0, 126, 0.3);
-    position: relative;
-    overflow: hidden;
-}
-
-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(230, 0, 126, 0.4);
-}
-
-button::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-    transform: translateX(-100%);
-}
-
-button:hover::after {
-    animation: shimmer 1s forwards;
-}
-
-@keyframes shimmer {
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-/* Page 3 Styles - Enhanced Animation */
-#page3 h2 {
-    color: #8c004b;
-    margin-bottom: 15px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 2em;
-}
-
-#animation-container {
-    position: relative;
-    width: 200px;
-    height: 150px;
-    margin: 30px auto;
-}
-
-#message-box {
-    width: 100px;
-    height: 70px;
-    background-color: white;
-    border: 2px solid #ff69b4;
-    border-radius: 8px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.9em;
-    font-family: 'Kalam', cursive;
-    color: #e6007e;
-    animation: enhancedFoldSend 3s forwards;
-    transform-origin: top center;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    padding: 10px;
-}
-
-#message-box::before {
-    content: "💕";
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    font-size: 0.8em;
-}
-
-#message-box::after {
-    content: "💕";
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    font-size: 0.8em;
-}
-
-#mail-icon {
-    font-size: 2.5em;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    animation: enhancedSlideMail 3s forwards;
-    opacity: 0;
-    color: #ff1493;
-    text-shadow: 0 0 10px rgba(255, 20, 147, 0.3);
-}
-
-#love-particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.love-particle {
-    position: absolute;
-    font-size: 1em;
-    animation: loveFloat 4s ease-in-out infinite;
-    opacity: 0;
-}
-
-@keyframes loveFloat {
-    0% {
-        transform: translateY(0) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-80px) rotate(360deg);
-        opacity: 0;
-    }
-}
-
-#thank-you-message {
-    color: #8c004b;
-    margin-top: 30px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.5em;
-    opacity: 0;
-    animation: fadeInMessage 1s 3s forwards;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-#prath-message {
-    color: #e6007e;
-    margin-top: 15px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.3em;
-    font-weight: bold;
-    opacity: 0;
-    animation: fadeInMessage 1s 3.5s forwards;
-}
-
-#love-message {
-    color: #ff1493;
-    margin-top: 10px;
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.2em;
-    opacity: 0;
-    animation: fadeInMessage 1s 4s forwards, heartPulse 2s 4s infinite;
-}
-
-@keyframes heartPulse {
-    0%, 100% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.1);
-    }
-}
-
-@keyframes fadeInMessage {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes enhancedFoldSend {
-    0% {
-        transform: rotateX(0deg) translateY(0);
-        opacity: 1;
-    }
-    20% {
-        transform: rotateX(0deg) translateY(0) scale(1.1);
-        opacity: 1;
-    }
-    50% {
-        transform: rotateX(90deg) translateY(-20px);
-        opacity: 0.7;
-    }
-    60% {
-        transform: rotateX(80deg) translateY(-10px);
-        opacity: 0.6;
-    }
-    100% {
-        transform: rotateX(0deg) translateY(50px) scale(0.5);
-        opacity: 0;
-    }
-}
-
-@keyframes enhancedSlideMail {
-    0% {
-        transform: translateX(0) scale(0.5);
-        opacity: 0;
-    }
-    50% {
-        opacity: 0.5;
-        transform: translateX(25px) scale(0.8);
-    }
-    70% {
-        transform: translateX(35px) scale(1.1);
-    }
-    100% {
-        transform: translateX(50px) scale(1);
-        opacity: 1;
-    }
-}
-
-/* Footer Styles */
-footer {
-    margin-top: 30px;
-    color: #8c004b;
-    font-size: 0.9em;
-    font-family: 'Kalam', cursive;
-    animation: fadeIn 2s ease;
-}
-
-/* Responsive Design */
-@media (max-width: 480px) {
-    .container {
-        width: 95%;
-        padding: 20px;
-    }
-
-    #page1 {
-        grid-template-columns: 1fr;
-    }
-
-    .option-box {
-        margin-bottom: 15px;
-    }
-    
-    .notebook {
-        padding: 20px;
-    }
-    
-    .notebook textarea {
-        font-size: 1em;
-    }
-    
-    #animation-container {
-        width: 150px;
-        height: 120px;
-    }
-}
+    <script>
+        let selectedType = "";
+        
+        function navigateTo(pageId, type = "") {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Store the selected type if provided
+            if (type) {
+                selectedType = type;
+                document.querySelector('#page2 h2').textContent = `Share your ${type} thoughts`;
+            }
+            
+            // If showing page 3, start the love particles animation
+            if (pageId === 'page3') {
+                createLoveParticles();
+            }
+        }
+        
+        function submitEntry() {
+            const message = document.getElementById('message').value.trim();
+            if (!message) {
+                alert("Please write something before submitting");
+                return;
+            }
+            
+            // Set the message in the animation box
+            document.getElementById('message-box').textContent = message.substring(0, 30) + (message.length > 30 ? "..." : "");
+            
+            // Clear the textarea
+            document.getElementById('message').value = "";
+            
+            // Navigate to thank you page
+            navigateTo('page3');
+        }
+        
+        // Function to create floating love particles
+        function createLoveParticles() {
+            const particlesContainer = document.getElementById('love-particles');
+            particlesContainer.innerHTML = ''; // Clear previous particles
+            
+            // Love symbols to use
+            const loveSymbols = ['❤️', '💖', '💕', '💗', '💓', '💘', '💝'];
+            
+            // Create 15 random particles
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'love-particle';
+                
+                // Random love symbol
+                particle.textContent = loveSymbols[Math.floor(Math.random() * loveSymbols.length)];
+                
+                // Random position
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                
+                // Random animation delay
+                particle.style.animationDelay = (Math.random() * 4) + 's';
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+    </script>
+</body>
+</html>
