@@ -1,5 +1,5 @@
 let emotion = "";
-const scriptURL = 'Yhttps://docs.google.com/spreadsheets/d/16tRdA2j34yMIlwRyXXVDYhWnj1OJXMxqUJh44LyB4yQ/edit?usp=sharing';
+const scriptURL = https://script.google.com/macros/s/AKfycbz-YgHPnWROmN9exFHbbLzVcPFUi8LNRiR-qMbsw8NfRU4fDw3Maimfza-yjZaULQNUPg/exec';
 const res = await fetch('https://opensheet.elk.sh/16tRdA2j34yMIlwRyXXVDYhWnj1OJXMxqUJh44LyB4yQ/Sheet1');
 
 function pick(e) {
