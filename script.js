@@ -1,5 +1,6 @@
 let emotion = "";
-const URL = "https://script.google.com/macros/s/AKfycbzQsTJstltEh7ULawtJMqiTEE8aG97SAho6gs548FyFJrO7YHWlVMcpUKf0jSc6hpx2/exec";  // Replace with your Google Apps Script URL
+const scriptURL = 'Yhttps://docs.google.com/spreadsheets/d/16tRdA2j34yMIlwRyXXVDYhWnj1OJXMxqUJh44LyB4yQ/edit?usp=sharing';
+const res = await fetch('https://opensheet.elk.sh/16tRdA2j34yMIlwRyXXVDYhWnj1OJXMxqUJh44LyB4yQ/Sheet1');
 
 function pick(e) {
   emotion = e;
