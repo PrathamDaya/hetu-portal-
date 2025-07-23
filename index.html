@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Journey to Forever | A Digital Proposal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base Styles & Thematic Elements --- */
+        :root {
+            --primary-color: #d19a9a; /* Soft, dusty rose */
+            --secondary-color: #f0e6e6; /* Very light cream */
+            --accent-color: #b07171; /* Deeper, muted red */
+            --text-color: #4a2c2c; /* Rich brown */
+            --gold-color: #c9a87c; /* Muted gold for accents */
+            --bg-color: #fdfaf8; /* Warm off-white */
+            --error-color: #c0392b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+            background-image: 
+                radial-gradient(circle at 1% 1%, rgba(209, 154, 154, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 99% 99%, rgba(209, 154, 154, 0.1) 1px, transparent 1px);
+            background-size: 2rem 2rem;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 650px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Step-by-Step Form Styling --- */
+        .proposal-step {
+            display: none;
+            padding: 2.5rem 3rem;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        .proposal-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .step-header h2 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-header p {
+            font-size: 1.1rem;
+            color: #775a5a;
+            font-style: italic;
+        }
+
+        /* --- Form Elements Styling --- */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.9rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Lato', sans-serif;
+            font-size: 1rem;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(209, 154, 154, 0.3);
+            background-color: #fff;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+            font-weight: bold;
+        }
+
+        /* --- Navigation Buttons --- */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2.5rem;
+        }
+
+        .btn {
+            font-family: 'Playfair Display', serif;
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-next {
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color));
+            color: white;
+        }
+
+        .btn-next:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-prev {
+            background-color: #eee;
+            color: var(--text-color);
+        }
+        
+        .btn-prev:hover {
+            background-color: #ddd;
+        }
+        
+        .btn-final {
+            background: linear-gradient(45deg, var(--gold-color), #e6cfa8);
+            color: var(--text-color);
+            font-weight: bold;
+        }
+
+        /* --- Welcome & Final Question Step --- */
+        #step-1, #step-6 {
+            text-align: center;
+        }
+
+        #step-1 h1 {
+            font-size: 2.8rem;
+            color: var(--accent-color);
+        }
+        
+        #step-1 p, #step-6 p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin: 1.5rem 0;
+        }
+
+        /* --- Certificate Styling --- */
+        #certificate-container {
+            padding: 2rem;
+            text-align: center;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        #certificate {
+            background: #fff;
+            padding: 2.5rem;
+            border: 8px double var(--gold-color);
+            border-radius: 10px;
+            position: relative;
+            background-color: var(--secondary-color);
+        }
+
+        #certificate::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid var(--gold-color);
+            border-radius: 5px;
+        }
+
+        .cert-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .cert-sub-header {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .cert-body {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-color);
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .cert-names {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin: 1rem 0;
+            font-weight: 700;
+        }
+        
+        .cert-ampersand {
+            font-size: 1.5rem;
+            font-style: italic;
+            color: var(--gold-color);
+        }
+
+        .cert-footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #775a5a;
+        }
+        
+        .cert-actions {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+        
+        .cert-actions .btn {
+            width: 80%;
+            max-width: 300px;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 600px) {
+            body {
+                padding: 1rem 0.5rem;
+            }
+            .proposal-step {
+                padding: 2rem 1.5rem;
+            }
+            .step-header h2 {
+                font-size: 1.8rem;
+            }
+            .cert-header {
+                font-size: 2rem;
+            }
+            .cert-names {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+
+        <!-- Step 1: Welcome -->
+        <div id="step-1" class="proposal-step active">
+            <div class="step-header">
+                <h1>A Journey to Forever</h1>
+                <p>Love isn't something you find. Love is something that finds you. It's a journey of a thousand miles, and it begins with a single step. Let's begin ours...</p>
+            </div>
+            <div class="navigation-buttons">
+                <span></span> <!-- for spacing -->
+                <button class="btn btn-next" onclick="nextStep(1)">Begin the Story</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Your Information -->
+        <div id="step-2" class="proposal-step">
+            <div class="step-header">
+                <h2>Let's Start With You</h2>
+                <p>The one who is ready to ask the most beautiful question.</p>
+            </div>
+            <form id="form-step-2">
+                <div class="form-group">
+                    <label for="proposerName">Your Full Name</label>
+                    <input type="text" id="proposerName" name="proposerName" placeholder="e.g., Rohan Verma">
+                    <div class="error-message">Please share your name.</div>
+                </div>
+                <div class="form-group">
+                    <label for="proposerEmail">Your Email</label>
+                    <input type="email" id="proposerEmail" name="proposerEmail" placeholder="For you to receive the certificate">
+                    <div class="error-message">A valid email is needed for the magic to happen.</div>
+                </div>
+            </form>
+            <div class="navigation-buttons">
+                <button class="btn btn-prev" onclick="prevStep(2)">Back</button>
+                <button class="btn btn-next" onclick="nextStep(2)">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Partner's Details -->
+        <div id="step-3" class="proposal-step">
+            <div class="step-header">
+                <h2>About Your Soulmate</h2>
+                <p>The one who holds the other half of your heart.</p>
+            </div>
+            <form id="form-step-3">
+                <div class="form-group">
+                    <label for="partnerName">Their Full Name</label>
+                    <input type="text" id="partnerName" name="partnerName" placeholder="e.g., Priya Sharma">
+                    <div class="error-message">Every star needs a name.</div>
+                </div>
+                <div class="form-group">
+                    <label for="partnerEmail">Their Email (Optional)</label>
+                    <input type="email" id="partnerEmail" name="partnerEmail" placeholder="To send them a beautiful surprise">
+                    <div class="error-message">Please enter a valid email.</div>
+                </div>
+            </form>
+            <div class="navigation-buttons">
+                <button class="btn btn-prev" onclick="prevStep(3)">Back</button>
+                <button class="btn btn-next" onclick="nextStep(3)">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 4: The Journey of "Us" -->
+        <div id="step-4" class="proposal-step">
+            <div class="step-header">
+                <h2>The Story of "Us"</h2>
+                <p>Let's weave our memories into this moment.</p>
+            </div>
+            <form id="form-step-4">
+                <div class="form-group">
+                    <label for="sharedMemory">A Cherished Memory</label>
+                    <textarea id="sharedMemory" name="sharedMemory" placeholder="Describe a moment that defines your love, like 'the rainy evening we shared a cup of chai under the blue umbrella...'"></textarea>
+                    <div class="error-message">This memory will be our foundation.</div>
+                </div>
+                 <div class="form-group">
+                    <label for="futureDream">A Shared Dream for the Future</label>
+                    <textarea id="futureDream" name="futureDream" placeholder="What do you dream of building together? e.g., '...to travel the world, one plate of biryani at a time'"></textarea>
+                    <div class="error-message">A shared dream lights the way forward.</div>
+                </div>
+            </form>
+            <div class="navigation-buttons">
+                <button class="btn btn-prev" onclick="prevStep(4)">Back</button>
+                <button class="btn btn-next" onclick="nextStep(4)">Next</button>
+            </div>
+        </div>
+
+        <!-- Step 5: The Promises -->
+        <div id="step-5" class="proposal-step">
+            <div class="step-header">
+                <h2>My Vows to You</h2>
+                <p>Words from the heart, for a lifetime of love.</p>
+            </div>
+            <form id="form-step-5">
+                <div class="form-group">
+                    <label for="promise1">I promise to always...</label>
+                    <input type="text" id="promise1" name="promise1" placeholder="e.g., ...be your biggest cheerleader.">
+                    <div class="error-message">A promise is the start of forever.</div>
+                </div>
+                <div class="form-group">
+                    <label for="promise2">I promise to share...</label>
+                    <input type="text" id="promise2" name="promise2" placeholder="e.g., ...the last piece of gulab jamun with you.">
+                    <div class="error-message">Sharing is the language of love.</div>
+                </div>
+                <div class="form-group">
+                    <label for="promise3">With you, I promise to build a life of...</label>
+                    <input type="text" id="promise3" name="promise3" placeholder="e.g., ...laughter, respect, and endless adventure.">
+                    <div class="error-message">Describe the life you envision.</div>
+                </div>
+            </form>
+            <div class="navigation-buttons">
+                <button class="btn btn-prev" onclick="prevStep(5)">Back</button>
+                <button class="btn btn-next" onclick="nextStep(5)">Ask the Question</button>
+            </div>
+        </div>
+        
+        <!-- Step 6: The Big Question -->
+        <div id="step-6" class="proposal-step">
+            <div class="step-header">
+                <h2 id="bigQuestionHeader">My Dearest [Partner's Name],</h2>
+                <p>We've shared a journey of moments and dreams. Now, I have one more question to ask, a question that holds all my hopes...</p>
+            </div>
+            <div class="navigation-buttons">
+                <button class="btn btn-prev" onclick="prevStep(6)">Take a Breath</button>
+                <button class="btn btn-final" onclick="generateCertificate()">Will You Marry Me?</button>
+            </div>
+        </div>
+        
+        <!-- Step 7: Certificate -->
+        <div id="step-7" class="proposal-step">
+            <div id="certificate-container">
+                <div id="certificate">
+                    <h3 class="cert-header">Certificate of a Lifelong Promise</h3>
+                    <p class="cert-sub-header">A testament to a love that begins today and lasts for all of our tomorrows.</p>
+                    <div class="cert-body">
+                        This certifies that on this day, <span id="cert-date" style="font-weight:bold;"></span>, a beautiful question was asked, sealing a promise between two hearts destined to be one.
+                        <br><br>
+                        <strong id="cert-proposerName" class="cert-names"></strong>
+                        <br>
+                        <span class="cert-ampersand">&</span>
+                        <br>
+                        <strong id="cert-partnerName" class="cert-names"></strong>
+                        <br><br>
+                        Their journey is built on the memory of <span id="cert-memory" style="font-style:italic;"></span>, and guided by a shared dream <span id="cert-dream" style="font-style:italic;"></span>.
+                        <br><br>
+                        With these vows, a new chapter begins:
+                        <div id="cert-promises" style="margin-top: 1rem; font-style: italic; color: var(--primary-color);"></div>
+                    </div>
+                    <div class="cert-footer">
+                        May your life together be an endless celebration of love, companionship, and joy.
+                    </div>
+                </div>
+                <div class="cert-actions">
+                     <button class="btn btn-next" onclick="window.print()">Print / Save as PDF</button>
+                     <a id="email-link" class="btn btn-next" href="#">Email This Certificate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- State Management & Initialization ---
+        let currentStep = 1;
+        const totalSteps = 7;
+        const proposalData = {};
+
+        // --- Navigation Logic ---
+        function showStep(stepNumber) {
+            document.querySelectorAll('.proposal-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+        }
+
+        function nextStep(stepNumber) {
+            if (validateStep(stepNumber)) {
+                saveStepData(stepNumber);
+                currentStep++;
+                if (currentStep > totalSteps) {
+                    currentStep = totalSteps;
+                }
+                // Personalize the final question header
+                if (currentStep === 6) {
+                    const partnerName = proposalData.partnerName || "my love";
+                    document.getElementById('bigQuestionHeader').innerText = `My Dearest ${partnerName},`;
+                }
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep(stepNumber) {
+            currentStep--;
+            if (currentStep < 1) {
+                currentStep = 1;
+            }
+            showStep(currentStep);
+        }
+
+        // --- Validation Logic ---
+        function validateStep(stepNumber) {
+            let isValid = true;
+            const form = document.getElementById(`form-step-${stepNumber}`);
+            if (!form) return true; // Steps without forms are always valid
+
+            // Hide all previous errors
+            form.querySelectorAll('.error-message').forEach(el => el.style.display = 'none');
+            
+            const inputs = form.querySelectorAll('input[name], textarea[name]');
+            inputs.forEach(input => {
+                let fieldValid = true;
+                // Simple required validation for all fields except optional partner email
+                if (input.name !== 'partnerEmail' && !input.value.trim()) {
+                    fieldValid = false;
+                }
+                // Email validation
+                if (input.type === 'email' && input.value.trim() && !/^\S+@\S+\.\S+$/.test(input.value)) {
+                    fieldValid = false;
+                }
+
+                if (!fieldValid) {
+                    isValid = false;
+                    const errorDiv = input.parentElement.querySelector('.error-message');
+                    if (errorDiv) {
+                        errorDiv.style.display = 'block';
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // --- Data Handling ---
+        function saveStepData(stepNumber) {
+            const form = document.getElementById(`form-step-${stepNumber}`);
+            if (form) {
+                const formData = new FormData(form);
+                for (let [key, value] of formData.entries()) {
+                    proposalData[key] = value.trim();
+                }
+            }
+        }
+
+        // --- Certificate Generation & Final Actions ---
+        function generateCertificate() {
+            // Final save before generating
+            saveStepData(currentStep - 1);
+
+            // Populate Certificate
+            document.getElementById('cert-proposerName').innerText = proposalData.proposerName || "A Hopeful Heart";
+            document.getElementById('cert-partnerName').innerText = proposalData.partnerName || "A Cherished Soul";
+            document.getElementById('cert-date').innerText = new Date().toLocaleDateString('en-GB', {
+                day: 'numeric', month: 'long', year: 'numeric'
+            });
+            document.getElementById('cert-memory').innerText = `"${proposalData.sharedMemory}"`;
+            document.getElementById('cert-dream').innerText = `to "${proposalData.futureDream}"`;
+
+            const promisesHtml = `
+                <p>I promise to always ${proposalData.promise1}</p>
+                <p>I promise to share ${proposalData.promise2}</p>
+                <p>With you, I promise to build a life of ${proposalData.promise3}</p>
+            `;
+            document.getElementById('cert-promises').innerHTML = promisesHtml;
+
+            // Setup Email Link
+            setupEmailLink();
+
+            // Show the certificate
+            currentStep = 7;
+            showStep(currentStep);
+        }
+
+        function setupEmailLink() {
+            const recipient = proposalData.partnerEmail || proposalData.proposerEmail;
+            const subject = `A Question for You, ${proposalData.partnerName}...`;
+            
+            const body = `
+My Dearest ${proposalData.partnerName},
+
+I've created something just for you, something that holds all of my heart. Please see the attached certificate of my promise to you.
+
+With all my love,
+${proposalData.proposerName}
+
+--- CERTIFICATE OF A LIFELONG PROMISE ---
+
+This certifies that on ${document.getElementById('cert-date').innerText}, a beautiful question was asked, sealing a promise between two hearts destined to be one:
+${proposalData.proposerName} & ${proposalData.partnerName}
+
+Our journey is built on the memory of "${proposalData.sharedMemory}", and guided by a shared dream to "${proposalData.futureDream}".
+
+With these vows, a new chapter begins:
+- I promise to always ${proposalData.promise1}
+- I promise to share ${proposalData.promise2}
+- With you, I promise to build a life of ${proposalData.promise3}
+
+May our life together be an endless celebration of love, companionship, and joy.
+            `;
+            
+            const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            document.getElementById('email-link').href = mailtoLink;
+        }
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            showStep(currentStep);
+        });
+    </script>
+</body>
+</html>
